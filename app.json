@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Local Explorer AI",
+    "slug": "local-explorer-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "localexplorer",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#FFE7CE"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "vn.localexplorer.mobile",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Local Explorer dùng vị trí của bạn để chỉ đường tới điểm kế tiếp và tự phát audio guide khi tới nơi."
+      }
+    },
+    "android": {
+      "package": "vn.localexplorer.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFE7CE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-splash-screen",
+      "@maplibre/maplibre-react-native",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Local Explorer dùng vị trí của bạn để chỉ đường tới điểm kế tiếp và tự phát audio guide khi tới nơi."
+        }
+      ]
+    ]
+  }
+}

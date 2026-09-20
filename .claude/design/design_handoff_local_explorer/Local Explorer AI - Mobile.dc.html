@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #FFE7CE; }
+  a { color: #D93A14; }
+  a:hover { color: #0B6E5F; }
+  @keyframes pulseRing { 0% { transform: scale(1); opacity: .55 } 100% { transform: scale(2.6); opacity: 0 } }
+</style>
+</helmet>
+
+<section style="font-family: 'Be Vietnam Pro', system-ui, sans-serif; padding: 52px 40px 80px; color: #16130F">
+  <div id="4a" style="display: flex; flex-direction: column; gap: 30px">
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: .12em; background: #16130F; color: #FFE7CE; padding: 5px 10px; border-radius: 4px">4A</span>
+      <h1 style="font-family: Archivo, sans-serif; font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -.02em">Local Explorer · mobile web</h1>
+      <p style="margin: 0; font-size: 15px; color: #6B5F52; max-width: 560px; text-wrap: pretty">Bảy màn hình, chạy trên trình duyệt điện thoại. Khung rộng linh hoạt — thu nhỏ cửa sổ thì các màn xếp dọc lại, nội dung bên trong tự co. Không còn mã FR, endpoint hay tên field.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 32px">
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="height: 860px; background: #fff; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 28px 22px 24px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="width: 34px; height: 34px; border-radius: 10px; background: #D93A14; color: #fff; display: grid; place-items: center; font-family: Archivo; font-weight: 800; font-size: 15px">LE</span>
+              <span style="font-family: Archivo; font-weight: 700; font-size: 16px; letter-spacing: -.01em">Local Explorer</span>
+            </div>
+            <h2 style="font-family: Archivo, sans-serif; font-size: 34px; font-weight: 800; line-height: 1.08; letter-spacing: -.025em; margin: 26px 0 0">Bạn đi đâu?</h2>
+            <p style="font-size: 14.5px; color: #6B5F52; margin: 10px 0 0">Bốn câu, rồi mình xếp lịch trình.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px">
+              <button onClick="{{ city0 }}" style="{{ city0Style }}">
+                <span style="font-family: Archivo; font-size: 16px; font-weight: 700">Huế</span>
+                <span style="font-size: 11.5px; font-weight: 600; opacity: .8">78 điểm · đủ dữ liệu</span>
+              </button>
+              <button onClick="{{ city1 }}" style="{{ city1Style }}">
+                <span style="font-family: Archivo; font-size: 16px; font-weight: 700">Đà Nẵng</span>
+                <span style="font-size: 11.5px; font-weight: 600; opacity: .8">sắp có</span>
+              </button>
+              <button onClick="{{ city2 }}" style="{{ city2Style }}">
+                <span style="font-family: Archivo; font-size: 16px; font-weight: 700">Hội An</span>
+                <span style="font-size: 11.5px; font-weight: 600; opacity: .8">sắp có</span>
+              </button>
+              <button onClick="{{ city3 }}" style="{{ city3Style }}">
+                <span style="font-family: Archivo; font-size: 16px; font-weight: 700">Quảng Trị</span>
+                <span style="font-size: 11.5px; font-weight: 600; opacity: .8">sắp có</span>
+              </button>
+            </div>
+            <div style="{{ cityNoteStyle }}">{{ cityNote }}</div>
+
+            <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin: 28px 0 12px">Ở BAO LÂU</div>
+            <div style="display: flex; gap: 10px">
+              <button onClick="{{ pickLen1 }}" style="{{ len1Style }}">1 ngày</button>
+              <button onClick="{{ pickLen2 }}" style="{{ len2Style }}">2 ngày</button>
+              <button onClick="{{ pickLen3 }}" style="{{ len3Style }}">3 ngày</button>
+            </div>
+
+            <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin: 28px 0 12px">BẠN NGHIÊNG VỀ ĐIỀU GÌ</div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+              <button onClick="{{ tog0 }}" style="{{ int0Style }}">
+                <span style="font-family: Archivo; font-size: 15px; font-weight: 700">Di sản</span>
+                <span style="font-size: 12px; opacity: .75">Đại Nội, lăng, chùa</span>
+              </button>
+              <button onClick="{{ tog1 }}" style="{{ int1Style }}">
+                <span style="font-family: Archivo; font-size: 15px; font-weight: 700">Ẩm thực</span>
+                <span style="font-size: 12px; opacity: .75">Bún bò, cơm hến, chợ</span>
+              </button>
+              <button onClick="{{ tog2 }}" style="{{ int2Style }}">
+                <span style="font-family: Archivo; font-size: 15px; font-weight: 700">Làng nghề</span>
+                <span style="font-size: 12px; opacity: .75">Hương, hoa giấy, nón</span>
+              </button>
+              <button onClick="{{ tog3 }}" style="{{ int3Style }}">
+                <span style="font-family: Archivo; font-size: 15px; font-weight: 700">Thiên nhiên</span>
+                <span style="font-size: 12px; opacity: .75">Đầm phá, đồi, sông</span>
+              </button>
+            </div>
+
+            <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin: 28px 0 12px">ĐI LẠI BẰNG</div>
+            <div style="display: flex; gap: 10px">
+              <button onClick="{{ setWalk }}" style="{{ mWalkStyle }}">Đi bộ</button>
+              <button onClick="{{ setBike }}" style="{{ mBikeStyle }}">Xe máy</button>
+              <button onClick="{{ setCar }}" style="{{ mCarStyle }}">Ô tô</button>
+            </div>
+
+            <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin: 28px 0 12px">MỖI NGÀY BẮT ĐẦU LÚC</div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <button onClick="{{ setStart0 }}" style="{{ startStyle0 }}">07:00</button>
+              <button onClick="{{ setStart1 }}" style="{{ startStyle1 }}">08:30</button>
+              <button onClick="{{ setStart2 }}" style="{{ startStyle2 }}">10:00</button>
+            </div>
+
+            <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin: 28px 0 12px">ĐI CÙNG</div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <button onClick="{{ setGroup0 }}" style="{{ groupStyle0 }}">Một mình</button>
+              <button onClick="{{ setGroup1 }}" style="{{ groupStyle1 }}">Hai người</button>
+              <button onClick="{{ setGroup2 }}" style="{{ groupStyle2 }}">Có trẻ nhỏ</button>
+              <button onClick="{{ setGroup3 }}" style="{{ groupStyle3 }}">Nhóm 4+</button>
+            </div>
+            <div style="margin-top: 12px; font-size: 12.5px; color: #6B5F52">Có trẻ nhỏ thì mình giảm số điểm và chèn quãng nghỉ buổi trưa.</div>
+          </div>
+          <div style="flex: none; padding: 16px 22px 24px; border-top: 1px solid #F1EBE2">
+            <button style="width: 100%; height: 56px; border: none; border-radius: 16px; background: #D93A14; color: #fff; font-family: Archivo; font-size: 16px; font-weight: 700; cursor: pointer" style-hover="background: #B92F0E">Tạo lịch trình →</button>
+            <div style="text-align: center; font-size: 12.5px; color: #8A7D6D; margin-top: 12px">{{ startNote }} · đổi được sau</div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">1 · Bắt đầu.</b> Ba câu hỏi, không tài khoản, không biểu mẫu dài.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="height: 860px; background: #FFF7EE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="flex: none; padding: 18px 20px 14px; background: #fff; border-bottom: 1px solid #F1EBE2">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #0B6E5F; color: #FFD66B; display: grid; place-items: center; font-family: Archivo; font-weight: 800; font-size: 15px">LE</span>
+              <div style="flex: 1; min-width: 0">
+                <div style="font-family: Archivo; font-size: 17px; font-weight: 700; letter-spacing: -.01em">Trợ lý</div>
+                <div style="font-size: 12.5px; color: #8A7D6D; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cityName }} · {{ lenLabel }} · {{ modeLabel }}</div>
+              </div>
+              <span style="font-size: 22px; line-height: 1; color: #16130F; cursor: pointer; padding-left: 2px">→</span>
+            </div>
+          </div>
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 20px 22px; display: grid; align-content: start; gap: 14px">
+            <div style="max-width: 88%; background: #fff; border-radius: 20px 20px 20px 6px; padding: 14px 16px; font-size: 14.5px; line-height: 1.55; box-shadow: 0 3px 12px -8px rgba(22,19,15,.35)">Bạn có mấy ngày ở Huế, và muốn nghiêng về di sản, làng nghề hay ăn uống?</div>
+            <div style="justify-self: end; max-width: 88%; background: #16130F; color: #FFF7EE; border-radius: 20px 20px 6px 20px; padding: 14px 16px; font-size: 14.5px; line-height: 1.55">2 ngày, thích làng nghề và ăn uống. Mình đi xe máy, không muốn đi xa buổi trưa.</div>
+            <div style="max-width: 88%; background: #fff; border-radius: 20px 20px 20px 6px; padding: 14px 16px; font-size: 14.5px; line-height: 1.55; box-shadow: 0 3px 12px -8px rgba(22,19,15,.35)">Rồi. Mình xếp 13 điểm trong 2 ngày, giữ buổi trưa ở khu trung tâm và đẩy làng nghề về chiều cho mát.</div>
+            <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 24px -14px rgba(22,19,15,.45)">
+              <div style="display: flex; gap: 3px; height: 96px; overflow: hidden; border-radius: 20px 20px 0 0">
+                <image-slot id="m4-c1" style="flex: 1; height: 96px" shape="rect" placeholder=" "></image-slot>
+                <image-slot id="m4-c2" style="flex: 1; height: 96px" shape="rect" placeholder=" "></image-slot>
+                <image-slot id="m4-c3" style="flex: 1; height: 96px" shape="rect" placeholder=" "></image-slot>
+              </div>
+              <div style="padding: 16px">
+                <div style="display: flex; justify-content: space-between; align-items: baseline">
+                  <span style="font-family: Archivo; font-size: 19px; font-weight: 800; letter-spacing: -.015em">Huế · 2 ngày</span>
+                  <span style="font-size: 12.5px; font-weight: 600; color: #D93A14">13 điểm</span>
+                </div>
+                <div style="margin-top: 10px; font-size: 13.5px; line-height: 1.5; color: #4A4238">Ngày 1 quanh Đại Nội và Thủy Xuân · Ngày 2 lên cụm lăng phía nam, về Bao Vinh lúc chiều muộn.</div>
+                <button style="width: 100%; height: 48px; margin-top: 14px; border: none; border-radius: 14px; background: #D93A14; color: #fff; font-family: Archivo; font-size: 15px; font-weight: 700; cursor: pointer">Xem lịch trình</button>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <span style="background: #fff; border: 2px solid #16130F; border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 600">Đổi bữa trưa ngày 1</span>
+              <span style="background: #fff; border: 2px solid #E7DFD4; border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 600">Thêm buổi đi thuyền</span>
+              <span style="background: #fff; border: 2px solid #E7DFD4; border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 600">Chỗ ở gần điểm ngày 2</span>
+            </div>
+          </div>
+          <div style="flex: none; background: #fff; border-top: 1px solid #F1EBE2; padding: 14px 16px; display: flex; gap: 10px; align-items: center">
+            <div style="flex: 1; height: 48px; border-radius: 24px; background: #F5EFE6; display: flex; align-items: center; padding: 0 16px; font-size: 14px; color: #8A7D6D">Nhắn cho trợ lý…</div>
+            <span style="width: 48px; height: 48px; flex: none; border-radius: 50%; background: #D93A14; color: #fff; display: grid; place-items: center; font-size: 17px">↑</span>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">2 · Trợ lý.</b> Kết quả là một thẻ bấm được, không phải khối văn bản.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="position: relative; height: 860px; background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="position: absolute; inset: 0; background: #E4EBDC">
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(#D5DEC9 1px, transparent 1px), linear-gradient(90deg, #D5DEC9 1px, transparent 1px); background-size: 48px 48px"></div>
+            <div style="position: absolute; left: -24px; right: -24px; top: 310px; height: 78px; background: #8FC4D8; transform: rotate(-9deg)"></div>
+            <div style="position: absolute; left: 30px; top: 180px; width: 150px; height: 128px; background: #D9CFB6"></div>
+            <div style="position: absolute; left: 210px; top: 480px; width: 130px; height: 150px; background: #CBDDB0"></div>
+            <svg viewBox="0 0 420 860" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%">
+              <polyline points="196,244 140,276 100,360 156,442 100,576 226,522 312,640" fill="none" stroke="#D93A14" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            </svg>
+            <div style="position: absolute; left: 182px; top: 232px; width: 26px; height: 26px; border-radius: 50%; background: #FFD66B; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 88px; top: 348px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 144px; top: 430px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 88px; top: 564px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 214px; top: 510px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 300px; top: 628px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 116px; top: 250px; width: 48px; height: 48px; border-radius: 50%; border: 3px solid #0B6E5F; animation: pulseRing 2.4s ease-out infinite"></div>
+            <div style="position: absolute; left: 130px; top: 264px; width: 20px; height: 20px; border-radius: 50%; background: #0B6E5F; border: 3px solid #fff"></div>
+          </div>
+
+          <div style="position: absolute; left: 16px; right: 16px; top: 16px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; align-items: center; gap: 12px; background: #16130F; color: #FFF7EE; border-radius: 18px; padding: 14px 16px; box-shadow: 0 10px 26px -14px rgba(22,19,15,.7)">
+              <span style="width: 34px; height: 34px; flex: none; border-radius: 10px; background: #FFD66B; color: #16130F; display: grid; place-items: center; font-size: 16px; font-weight: 700">↑</span>
+              <div style="flex: 1; min-width: 0">
+                <div style="font-family: Archivo; font-size: 15px; font-weight: 700">Đang tới Đại Nội · 8 phút</div>
+                <div style="font-size: 12.5px; color: #C9BFB1">Rẽ phải vào Nguyễn Phúc Nguyên sau 400 m</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <span style="background: #16130F; color: #FFF7EE; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; cursor: pointer">{{ cityName }} · 2 ngày ▾</span>
+              <span style="background: #fff; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; box-shadow: 0 3px 10px -5px rgba(22,19,15,.5)">Ngày 1 · điểm 2/8</span>
+              <span style="background: #fff; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; box-shadow: 0 3px 10px -5px rgba(22,19,15,.5)">Xe máy</span>
+            </div>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; bottom: 78px; background: #fff; border-radius: 26px 26px 0 0; padding: 10px 20px 20px; box-shadow: 0 -16px 40px -18px rgba(22,19,15,.45)">
+            <div style="width: 46px; height: 5px; border-radius: 3px; background: #E7DFD4; margin: 0 auto 16px"></div>
+            <div style="display: flex; gap: 14px">
+              <image-slot id="m4-now" style="width: 104px; height: 104px; flex: none" radius="16" placeholder="Ảnh"></image-slot>
+              <div style="flex: 1; min-width: 0">
+                <div style="display: flex; align-items: center; gap: 7px; font-family: Archivo; font-size: 12px; font-weight: 700; color: #C9861B; letter-spacing: .07em">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #C9861B"></span>DI SẢN
+                </div>
+                <h2 style="font-family: Archivo, sans-serif; font-size: 22px; font-weight: 800; margin: 5px 0 6px; letter-spacing: -.02em; line-height: 1.15">Đại Nội — Hoàng thành Huế</h2>
+                <div style="font-size: 13px; color: #6B5F52">Mở 07:00–17:30 · ở khoảng 2 tiếng</div>
+              </div>
+            </div>
+            <p style="font-size: 14.5px; line-height: 1.55; margin: 14px 0 0; color: #3A342C; text-wrap: pretty">Vào trước 9:00 để tránh đoàn tour và nắng ở sân Đại Triều Nghi. Cửa Ngọ Môn gần bãi xe nhất.</p>
+            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap">
+              <span style="font-size: 12.5px; font-weight: 700; background: #0B6E5F; color: #fff; padding: 7px 12px; border-radius: 999px">Giờ này vắng</span>
+              <span style="font-size: 12.5px; font-weight: 700; background: #FFE7CE; color: #7A4A12; padding: 7px 12px; border-radius: 999px">Audio 4:12</span>
+              <span style="font-size: 12.5px; font-weight: 700; background: #F5EFE6; color: #5A5148; padding: 7px 12px; border-radius: 999px">4,7 ★ · 38</span>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 16px">
+              <button style="flex: 1; height: 52px; border: none; border-radius: 16px; background: #D93A14; color: #fff; font-family: Archivo; font-size: 16px; font-weight: 700; cursor: pointer">Chỉ đường</button>
+              <button style="width: 52px; height: 52px; border: 2px solid #16130F; border-radius: 16px; background: #fff; font-size: 17px; cursor: pointer">♡</button>
+              <button style="width: 52px; height: 52px; border: 2px solid #16130F; border-radius: 16px; background: #fff; font-size: 17px; cursor: pointer">▶</button>
+            </div>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 78px; background: #fff; border-top: 1px solid #F1EBE2; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; padding-top: 11px">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #D93A14"><span style="font-size: 19px">◉</span>Hôm nay</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">≡</span>Lịch trình</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">✳</span>Trợ lý</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">♡</span>Đã lưu</div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">3 · Hôm nay.</b> Bản đồ là nền, một thẻ cho điểm kế tiếp.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="position: relative; height: 860px; background: #FFF7EE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="flex: none; padding: 22px 22px 14px; background: #fff; border-bottom: 1px solid #F1EBE2">
+            <div style="display: flex; justify-content: space-between; align-items: baseline">
+              <h2 style="font-family: Archivo, sans-serif; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -.025em">Lịch trình {{ cityName }}</h2>
+              <span style="font-size: 13px; font-weight: 600; color: #6B5F52">2 ngày · 13 điểm</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap">
+              <button onClick="{{ pickDay0 }}" style="{{ day0Style }}">Ngày 1</button>
+              <button onClick="{{ pickDay1 }}" style="{{ day1Style }}">Ngày 2</button>
+              <div style="flex: 1"></div>
+              <button onClick="{{ cycleMode }}" style="height: 40px; padding: 0 16px; border: 2px solid #16130F; background: #FFD66B; border-radius: 999px; font-family: Archivo; font-size: 13px; font-weight: 700; cursor: pointer">{{ modeLabel }}</button>
+              <button onClick="{{ toggleEdit }}" style="{{ editBtnStyle }}">{{ editLabel }}</button>
+            </div>
+          </div>
+
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 16px 20px 190px">
+            <sc-for list="{{ stops }}" as="s" hint-placeholder-count="5">
+              <div style="display: flex; gap: 12px">
+                <div style="width: 48px; flex: none; text-align: right; padding-top: 15px">
+                  <div style="font-family: Archivo; font-size: 15px; font-weight: 800">{{ s.time }}</div>
+                  <div style="font-size: 11px; color: #9A8F80">{{ s.durTxt }}</div>
+                </div>
+                <div style="flex: 1; min-width: 0">
+                  <div style="background: #fff; border-radius: 18px; padding: 14px; display: flex; gap: 12px; box-shadow: 0 3px 12px -8px rgba(22,19,15,.4)">
+                    <div style="{{ s.swatchStyle }}">{{ s.initial }}</div>
+                    <div style="flex: 1; min-width: 0">
+                      <div style="display: flex; align-items: center; gap: 6px; font-family: Archivo; font-size: 11px; font-weight: 700; letter-spacing: .07em; color: #6B5F52">
+                        <span style="{{ s.dotStyle }}"></span>{{ s.catUp }}
+                      </div>
+                      <div style="font-family: Archivo; font-size: 17px; font-weight: 700; margin-top: 3px; line-height: 1.22; letter-spacing: -.015em">{{ s.name }}</div>
+                      <div style="font-size: 12.5px; color: #6B5F52; margin-top: 4px">{{ s.hint }}</div>
+                      <div style="{{ editRowStyle }}">
+                        <span style="font-size: 12.5px; font-weight: 700; color: #16130F; border: 2px solid #E7DFD4; border-radius: 999px; padding: 6px 11px">Đổi giờ</span>
+                        <span style="font-size: 12.5px; font-weight: 700; color: #16130F; border: 2px solid #E7DFD4; border-radius: 999px; padding: 6px 11px">Chèn điểm</span>
+                        <span style="font-size: 12.5px; font-weight: 700; color: #D93A14; border: 2px solid #F3CFC5; border-radius: 999px; padding: 6px 11px">Bỏ</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 9px; padding: 9px 4px 9px 14px; color: #9A8F80; font-size: 12px; font-weight: 500">
+                    <span style="width: 2px; height: 18px; background: #E7DFD4"></span>{{ s.travel }}
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="position: absolute; left: 20px; right: 20px; bottom: 96px; background: #16130F; color: #FFF7EE; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 16px 36px -16px rgba(22,19,15,.7)">
+            <div style="flex: 1; min-width: 0">
+              <div style="font-family: Archivo; font-size: 15px; font-weight: 700">{{ barTitle }}</div>
+              <div style="font-size: 12.5px; color: #C9BFB1">{{ barSub }}</div>
+            </div>
+            <span style="font-size: 12.5px; font-weight: 700; color: #16130F; background: #FFD66B; padding: 8px 12px; border-radius: 999px; white-space: nowrap">Nhờ trợ lý</span>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 78px; background: #fff; border-top: 1px solid #F1EBE2; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; padding-top: 11px">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">◉</span>Hôm nay</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #D93A14"><span style="font-size: 19px">≡</span>Lịch trình</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">✳</span>Trợ lý</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">♡</span>Đã lưu</div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">4 · Lịch trình.</b> Bấm nút phương tiện: cả ngày tính lại thời gian di chuyển.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="position: relative; height: 860px; background: #fff; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="position: relative; height: 300px; flex: none">
+            <image-slot id="m4-hero" style="position: absolute; inset: 0; width: 100%; height: 100%" shape="rect" placeholder="Ảnh Ngọ Môn — kéo vào đây"></image-slot>
+            <div style="position: absolute; left: 16px; top: 16px; width: 42px; height: 42px; border-radius: 13px; background: #fff; display: grid; place-items: center; font-size: 17px; box-shadow: 0 4px 12px -6px rgba(22,19,15,.6)">←</div>
+            <div style="position: absolute; right: 16px; top: 16px; display: flex; gap: 8px">
+              <div style="width: 42px; height: 42px; border-radius: 13px; background: #fff; display: grid; place-items: center; font-size: 16px; box-shadow: 0 4px 12px -6px rgba(22,19,15,.6)">♡</div>
+              <div style="width: 42px; height: 42px; border-radius: 13px; background: #fff; display: grid; place-items: center; font-size: 16px; box-shadow: 0 4px 12px -6px rgba(22,19,15,.6)">↗</div>
+            </div>
+          </div>
+
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 20px 22px 110px">
+            <div style="display: flex; align-items: center; gap: 8px; font-family: Archivo; font-size: 12px; font-weight: 700; letter-spacing: .07em; color: #C9861B">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #C9861B"></span>DI SẢN · 2,1 KM
+            </div>
+            <h2 style="font-family: Archivo, sans-serif; font-size: 29px; font-weight: 800; margin: 8px 0 0; letter-spacing: -.03em; line-height: 1.1">Đại Nội — Hoàng thành Huế</h2>
+            <p style="font-size: 14.5px; line-height: 1.6; color: #3A342C; margin: 12px 0 0; text-wrap: pretty">Kinh thành triều Nguyễn, xây năm 1804. Tử Cấm Thành và điện Thái Hòa vừa trùng tu xong.</p>
+
+            <div style="margin-top: 18px; border-radius: 18px; background: #FFE7CE; padding: 16px">
+              <div style="font-family: Archivo; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; color: #7A4A12">NÊN ĐẾN LÚC 8:45</div>
+              <p style="font-size: 14px; line-height: 1.55; margin: 8px 0 0; color: #3A342C">Trước 9:00 là tránh được đoàn tour và nắng ở sân Đại Triều Nghi. Cửa Ngọ Môn gần bãi xe nhất.</p>
+              <div style="display: flex; align-items: flex-end; gap: 4px; height: 46px; margin-top: 14px">
+                <div style="flex: 1; height: 30%; background: #E2C9A6; border-radius: 3px"></div>
+                <div style="flex: 1; height: 24%; background: #E2C9A6; border-radius: 3px"></div>
+                <div style="flex: 1; height: 38%; background: #0B6E5F; border-radius: 3px"></div>
+                <div style="flex: 1; height: 82%; background: #D93A14; border-radius: 3px"></div>
+                <div style="flex: 1; height: 100%; background: #D93A14; border-radius: 3px"></div>
+                <div style="flex: 1; height: 74%; background: #D93A14; border-radius: 3px"></div>
+                <div style="flex: 1; height: 50%; background: #E9A62B; border-radius: 3px"></div>
+                <div style="flex: 1; height: 44%; background: #E9A62B; border-radius: 3px"></div>
+                <div style="flex: 1; height: 36%; background: #E2C9A6; border-radius: 3px"></div>
+                <div style="flex: 1; height: 28%; background: #E2C9A6; border-radius: 3px"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 11.5px; color: #7A6A55; margin-top: 7px">
+                <span>7h</span><span style="color: #0B6E5F; font-weight: 700">bạn đến 8:45 — vắng</span><span>17h</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; align-items: center; gap: 13px; border: 2px solid #16130F; border-radius: 18px; padding: 13px 15px">
+              <span style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #0B6E5F; color: #fff; display: grid; place-items: center; font-size: 15px">▶</span>
+              <div style="flex: 1; min-width: 0">
+                <div style="font-family: Archivo; font-size: 14.5px; font-weight: 700">Audio guide · 4 phút 12</div>
+                <div style="font-size: 12.5px; color: #6B5F52">Đã tải 3,2 MB · dùng được khi mất mạng</div>
+              </div>
+            </div>
+            <div style="margin-top: 10px; display: flex; align-items: center; gap: 12px; padding: 0 4px">
+              <div style="flex: 1; font-size: 13px; color: #4A4238">Tự phát khi tới cổng</div>
+              <div style="width: 50px; height: 30px; border-radius: 15px; background: #0B6E5F; padding: 3px; display: flex; justify-content: flex-end; align-items: center">
+                <div style="width: 24px; height: 24px; border-radius: 50%; background: #fff"></div>
+              </div>
+            </div>
+
+            <div style="margin-top: 22px; display: flex; align-items: baseline; gap: 8px">
+              <span style="font-family: Archivo; font-size: 18px; font-weight: 800; letter-spacing: -.02em">Người đi trước nói</span>
+              <span style="font-size: 12.5px; color: #6B5F52">4,7 ★ · 38 đánh giá</span>
+            </div>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 13px">
+              <div>
+                <div style="font-size: 13px; font-weight: 700">Trang N. <span style="color: #E9A62B">★★★★★</span> <span style="color: #9A8F80; font-weight: 400">2 tuần</span></div>
+                <p style="font-size: 13.5px; line-height: 1.5; color: #3A342C; margin: 4px 0 0">Đi 15:00 như app gợi ý thì vắng hẳn, cô chủ dạy se hương thật.</p>
+              </div>
+              <div>
+                <div style="font-size: 13px; font-weight: 700">Hoàng M. <span style="color: #E9A62B">★★★★</span><span style="color: #E7DFD4">★</span> <span style="color: #9A8F80; font-weight: 400">1 tháng</span></div>
+                <p style="font-size: 13.5px; line-height: 1.5; color: #3A342C; margin: 4px 0 0">Gửi xe ở đầu đường rồi đi bộ vào, trong làng đường hẹp.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #F1EBE2; padding: 16px 20px; display: flex; gap: 10px">
+            <button style="flex: 1; height: 54px; border: none; border-radius: 16px; background: #D93A14; color: #fff; font-family: Archivo; font-size: 16px; font-weight: 700; cursor: pointer">Thêm vào lịch trình</button>
+            <button style="width: 54px; height: 54px; border: 2px solid #16130F; border-radius: 16px; background: #fff; font-size: 17px; cursor: pointer">↗</button>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">5 · Chi tiết điểm.</b> Dự báo đông người thành một câu, không phải bảng số.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="position: relative; height: 860px; background: #fff; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="position: relative; height: 320px; flex: none; background: #E4EBDC">
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(#D5DEC9 1px, transparent 1px), linear-gradient(90deg, #D5DEC9 1px, transparent 1px); background-size: 48px 48px"></div>
+            <svg viewBox="0 0 420 320" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%">
+              <polyline points="330,280 250,220 160,186 128,96" fill="none" stroke="#D93A14" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            </svg>
+            <div style="position: absolute; left: 318px; top: 268px; width: 22px; height: 22px; border-radius: 50%; background: #0B6E5F; border: 3px solid #fff"></div>
+            <div style="position: absolute; left: 116px; top: 84px; width: 26px; height: 26px; border-radius: 50%; background: #FFD66B; border: 3px solid #16130F"></div>
+            <div style="position: absolute; left: 16px; top: 16px; width: 42px; height: 42px; border-radius: 13px; background: #fff; display: grid; place-items: center; font-size: 17px; box-shadow: 0 4px 12px -6px rgba(22,19,15,.6)">←</div>
+          </div>
+
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 22px 22px 110px; margin-top: -26px; background: #fff; border-radius: 26px 26px 0 0; position: relative">
+            <div style="display: flex; align-items: center; gap: 14px">
+              <span style="font-size: 42px; color: #D93A14; line-height: 1">↱</span>
+              <div>
+                <div style="font-family: Archivo; font-size: 23px; font-weight: 800; line-height: 1.15; letter-spacing: -.02em">Rẽ phải vào Nguyễn Phúc Nguyên</div>
+                <div style="font-size: 13px; color: #6B5F52; margin-top: 4px">còn 400 m</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 18px 0; padding: 13px 15px; background: #FFE7CE; border-radius: 16px; font-size: 13.5px">
+              <span style="font-family: Archivo; font-weight: 800">2,1 km</span><span style="color: #C9A986">·</span>
+              <span style="font-family: Archivo; font-weight: 800">8 phút</span><span style="color: #C9A986">·</span>
+              <span style="color: #7A4A12">tới Đại Nội trước 8:45</span>
+              <div style="flex: 1"></div>
+              <span style="background: #16130F; color: #FFD66B; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 999px">Đọc to ✓</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column">
+              <div style="display: flex; gap: 14px; padding: 13px 0; border-top: 1px solid #F1EBE2">
+                <span style="width: 54px; flex: none; font-size: 12px; font-weight: 600; color: #9A8F80; padding-top: 2px">900 m</span>
+                <span style="font-size: 14.5px; line-height: 1.5">Đi thẳng qua cầu Bạch Hổ về phía nam sông Hương.</span>
+              </div>
+              <div style="display: flex; gap: 14px; padding: 13px 0; border-top: 1px solid #F1EBE2">
+                <span style="width: 54px; flex: none; font-size: 12px; font-weight: 600; color: #9A8F80; padding-top: 2px">2,1 km</span>
+                <span style="font-size: 14.5px; line-height: 1.5">Rẽ trái vào đường Bùi Thị Xuân, đi dọc bờ sông.</span>
+              </div>
+              <div style="display: flex; gap: 14px; padding: 13px 0; border-top: 1px solid #F1EBE2">
+                <span style="width: 54px; flex: none; font-size: 12px; font-weight: 600; color: #9A8F80; padding-top: 2px">3,7 km</span>
+                <span style="font-size: 14.5px; line-height: 1.5">Rẽ phải vào đường Huyền Trân Công Chúa, lên dốc.</span>
+              </div>
+              <div style="display: flex; gap: 14px; padding: 13px 0; border-top: 1px solid #F1EBE2">
+                <span style="width: 54px; flex: none; font-size: 12px; font-weight: 600; color: #6B5F52; padding-top: 2px">4,8 km</span>
+                <span style="font-size: 14.5px; font-weight: 700; line-height: 1.5; color: #0B6E5F">Đến Đại Nội, cổng Ngọ Môn bên phải đường.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #F1EBE2; padding: 16px 20px; display: flex; gap: 10px">
+            <button style="flex: 1; height: 54px; border: none; border-radius: 16px; background: #16130F; color: #FFF7EE; font-family: Archivo; font-size: 16px; font-weight: 700; cursor: pointer">Bắt đầu dẫn đường</button>
+            <button style="width: 104px; height: 54px; border: 2px solid #16130F; border-radius: 16px; background: #FFD66B; font-family: Archivo; font-size: 14px; font-weight: 700; cursor: pointer">Xe máy</button>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">6 · Chỉ đường.</b> Một hướng dẫn to, các chặng còn lại nhỏ bên dưới.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="position: relative; height: 860px; background: #FFF7EE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="flex: none; padding: 22px 22px 14px; background: #fff; border-bottom: 1px solid #F1EBE2">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <h2 style="flex: 1; font-family: Archivo, sans-serif; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -.025em">Đã lưu</h2>
+              <span style="background: #D93A14; color: #fff; font-family: Archivo; font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 999px; white-space: nowrap; cursor: pointer">+ Chuyến mới</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 14px">
+              <span style="background: #16130F; color: #FFF7EE; font-size: 13px; font-weight: 700; padding: 9px 15px; border-radius: 999px">Lịch trình 1</span>
+              <span style="background: #fff; border: 2px solid #E7DFD4; font-size: 13px; font-weight: 600; padding: 7px 15px; border-radius: 999px">Điểm lẻ 6</span>
+            </div>
+          </div>
+
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 18px 20px 24px; display: grid; align-content: start; gap: 16px">
+            <div style="background: #fff; border-radius: 20px; box-shadow: 0 4px 16px -10px rgba(22,19,15,.45)">
+              <div style="display: flex; gap: 3px; height: 108px; overflow: hidden; border-radius: 20px 20px 0 0">
+                <image-slot id="m4-s1" style="flex: 1; height: 108px" shape="rect" placeholder=" "></image-slot>
+                <image-slot id="m4-s2" style="flex: 1; height: 108px" shape="rect" placeholder=" "></image-slot>
+              </div>
+              <div style="padding: 16px">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+                  <span style="font-family: Archivo; font-size: 20px; font-weight: 800; letter-spacing: -.02em">Huế · 2 ngày</span>
+                  <span style="font-size: 12px; font-weight: 700; color: #fff; background: #0B6E5F; padding: 5px 10px; border-radius: 999px; white-space: nowrap">Đang đi · ngày 1/2</span>
+                </div>
+                <div style="font-size: 13px; color: #6B5F52; margin-top: 6px">13 điểm · làng nghề &amp; ẩm thực · xe máy</div>
+                <div style="display: flex; gap: 8px; margin-top: 14px">
+                  <button style="flex: 1; height: 46px; border: none; border-radius: 13px; background: #D93A14; color: #fff; font-family: Archivo; font-size: 14px; font-weight: 700; cursor: pointer">Mở</button>
+                  <button style="flex: 1; height: 46px; border: 2px solid #16130F; border-radius: 13px; background: #fff; font-family: Archivo; font-size: 14px; font-weight: 700; cursor: pointer">Chia sẻ</button>
+                  <button style="width: 46px; height: 46px; border: 2px solid #E7DFD4; border-radius: 13px; background: #fff; font-size: 15px; cursor: pointer">⋯</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 13px 15px">
+              <span style="font-size: 12px; font-weight: 700; color: #7A4A12; background: #FFE7CE; padding: 5px 10px; border-radius: 999px; white-space: nowrap">Nháp</span>
+              <div style="flex: 1; min-width: 0">
+                <div style="font-family: Archivo; font-size: 15.5px; font-weight: 700">Huế · 3 ngày</div>
+                <div style="font-size: 12.5px; color: #6B5F52">Chưa chọn chỗ ở · sửa 2 ngày trước</div>
+              </div>
+              <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Tiếp tục</span>
+            </div>
+
+            <div style="background: #16130F; color: #FFF7EE; border-radius: 20px; padding: 18px">
+              <div style="font-family: Archivo; font-size: 17px; font-weight: 800; letter-spacing: -.015em">Gửi cho bạn đi cùng</div>
+              <div style="font-size: 13px; color: #C9BFB1; margin-top: 6px">Người nhận mở được lịch trình trên web, không cần cài gì.</div>
+              <div style="display: flex; gap: 8px; align-items: center; margin-top: 14px; background: #2A251F; border-radius: 13px; padding: 12px 14px">
+                <span style="flex: 1; font-size: 13px; color: #E8E0D4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">localexplorer.vn/hue/a41c</span>
+                <span style="font-size: 12.5px; font-weight: 700; color: #FFD66B">Sao chép</span>
+              </div>
+              <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap">
+                <span style="background: #FFD66B; color: #16130F; font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 999px">Zalo</span>
+                <span style="border: 2px solid #4A443C; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px">Messenger</span>
+                <span style="border: 2px solid #4A443C; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px">Mã QR</span>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family: Archivo; font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #6B5F52; margin-bottom: 10px">ĐIỂM LƯU RIÊNG</div>
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px">
+                  <div style="width: 52px; height: 52px; flex: none; border-radius: 13px; background: #E9F1EC; color: #0B6E5F; display: grid; place-items: center; font-family: Archivo; font-size: 19px; font-weight: 800">L</div>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-family: Archivo; font-size: 15.5px; font-weight: 700">Làng nón lá Phú Cam</div>
+                    <div style="font-size: 12.5px; color: #6B5F52">Làng nghề · 3,6 km · nên hẹn trước</div>
+                  </div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Thêm</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px">
+                  <div style="width: 52px; height: 52px; flex: none; border-radius: 13px; background: #EDF2E4; color: #3F7D20; display: grid; place-items: center; font-family: Archivo; font-size: 19px; font-weight: 800">Đ</div>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-family: Archivo; font-size: 15.5px; font-weight: 700">Đầm Chuồn</div>
+                    <div style="font-size: 12.5px; color: #6B5F52">Thiên nhiên · 12,0 km · đi lúc rạng sáng</div>
+                  </div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Thêm</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 16px; padding: 12px 14px">
+                  <div style="width: 52px; height: 52px; flex: none; border-radius: 13px; background: #FAEDE7; color: #D93A14; display: grid; place-items: center; font-family: Archivo; font-size: 19px; font-weight: 800">B</div>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-family: Archivo; font-size: 15.5px; font-weight: 700">Bánh khoái Lạc Thiện</div>
+                    <div style="font-size: 12.5px; color: #6B5F52">Ẩm thực · 1,4 km · mở tới 21:00</div>
+                  </div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Thêm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex: none; height: 78px; background: #fff; border-top: 1px solid #F1EBE2; display: grid; grid-template-columns: repeat(4, 1fr); align-items: start; padding-top: 11px">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">◉</span>Hôm nay</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">≡</span>Lịch trình</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #9A8F80"><span style="font-size: 19px">✳</span>Trợ lý</div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #D93A14"><span style="font-size: 19px">♡</span>Đã lưu</div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">7 · Đã lưu &amp; chia sẻ.</b> Ba trạng thái rõ ràng: đang đi, nháp, đã xong. Link mở được trên web.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; width: min(420px, 100%)">
+        <div style="height: 860px; background: #FFF7EE; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px -24px rgba(22,19,15,.4)">
+          <div style="flex: none; padding: 22px 22px 14px; background: #fff; border-bottom: 1px solid #F1EBE2">
+            <h2 style="font-family: Archivo, sans-serif; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -.025em">Khi ngoài đường không như kế hoạch</h2>
+            <p style="font-size: 13px; color: #6B5F52; margin: 8px 0 0">Bốn trạng thái thường gặp — thiết kế sẵn, không để trống.</p>
+          </div>
+
+          <div style="flex: 1; min-height: 0; overflow: auto; padding: 18px 20px 24px; display: grid; align-content: start; gap: 14px">
+            <div style="background: #16130F; color: #FFF7EE; border-radius: 18px; padding: 16px">
+              <div style="font-family: Archivo; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #FFD66B">MẤT MẠNG</div>
+              <div style="font-family: Archivo; font-size: 17px; font-weight: 700; margin-top: 7px">Vẫn xem được cả lịch trình</div>
+              <p style="font-size: 13.5px; line-height: 1.5; color: #C9BFB1; margin: 6px 0 0">Bản đồ, chỉ đường và audio của 2 ngày đã tải sẵn 18 MB. Chỉ đánh giá và ảnh mới cần mạng.</p>
+              <div style="display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap">
+                <span style="background: #FFD66B; color: #16130F; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px">Dùng bản đã tải</span>
+                <span style="border: 2px solid #4A443C; font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: 999px">Thử lại</span>
+              </div>
+            </div>
+
+            <div style="background: #fff; border-radius: 18px; padding: 16px; border: 2px solid #FFE7CE">
+              <div style="font-family: Archivo; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #7A4A12">VỊ TRÍ LỆCH</div>
+              <div style="font-family: Archivo; font-size: 17px; font-weight: 700; margin-top: 7px">Chưa chắc bạn đang ở đâu</div>
+              <p style="font-size: 13.5px; line-height: 1.5; color: #4A4238; margin: 6px 0 0">Sai số khoảng 300 m trong khu nhà cao. Bạn chỉ điểm mình đang đứng, mình tính lại chặng.</p>
+              <div style="display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap">
+                <span style="background: #16130F; color: #FFF7EE; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px">Chọn trên bản đồ</span>
+                <span style="border: 2px solid #E7DFD4; font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: 999px">Bỏ qua</span>
+              </div>
+            </div>
+
+            <div style="background: #fff; border-radius: 18px; padding: 16px; border: 2px solid #F3CFC5">
+              <div style="font-family: Archivo; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #D93A14">ĐIỂM ĐÓNG CỬA HÔM NAY</div>
+              <div style="font-family: Archivo; font-size: 17px; font-weight: 700; margin-top: 7px">Nhà vườn An Hiên nghỉ thứ 2</div>
+              <p style="font-size: 13.5px; line-height: 1.5; color: #4A4238; margin: 6px 0 0">Hai chỗ thay thế cùng hướng, cùng khung 13:30–14:30:</p>
+              <div style="display: grid; gap: 8px; margin-top: 12px">
+                <div style="display: flex; align-items: center; gap: 11px; background: #FBF6EF; border-radius: 13px; padding: 11px 12px">
+                  <div style="width: 44px; height: 44px; flex: none; border-radius: 11px; background: #FDF0D9; color: #C9861B; display: grid; place-items: center; font-family: Archivo; font-size: 17px; font-weight: 800">P</div>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-family: Archivo; font-size: 14.5px; font-weight: 700">Phủ thờ Ngọc Sơn</div>
+                    <div style="font-size: 12px; color: #6B5F52">1,2 km · mở tới 17:00</div>
+                  </div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Thay</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 11px; background: #FBF6EF; border-radius: 13px; padding: 11px 12px">
+                  <div style="width: 44px; height: 44px; flex: none; border-radius: 11px; background: #E4F0EC; color: #0B6E5F; display: grid; place-items: center; font-family: Archivo; font-size: 17px; font-weight: 800">P</div>
+                  <div style="flex: 1; min-width: 0">
+                    <div style="font-family: Archivo; font-size: 14.5px; font-weight: 700">Làng đúc đồng Phường Đúc</div>
+                    <div style="font-size: 12px; color: #6B5F52">2,0 km · mở tới 17:00</div>
+                  </div>
+                  <span style="font-size: 12.5px; font-weight: 700; color: #D93A14">Thay</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: #fff; border-radius: 18px; padding: 16px; border: 2px solid #E7DFD4">
+              <div style="font-family: Archivo; font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #6B5F52">TRỢ LÝ CHẬM</div>
+              <div style="font-family: Archivo; font-size: 17px; font-weight: 700; margin-top: 7px">Mình xếp bằng quy tắc trước</div>
+              <p style="font-size: 13.5px; line-height: 1.5; color: #4A4238; margin: 6px 0 0">Trợ lý chưa trả lời sau 8 giây. Đây là lịch trình theo khoảng cách và giờ mở cửa — dùng được ngay, tinh chỉnh sau.</p>
+              <div style="display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap">
+                <span style="background: #D93A14; color: #fff; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px">Dùng bản này</span>
+                <span style="border: 2px solid #E7DFD4; font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: 999px">Chờ trợ lý</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #6B5F52"><b style="color: #16130F">8 · Trạng thái ngoài đường.</b> Mất mạng, GPS lệch, điểm đóng cửa, trợ lý chậm — mỗi trạng thái có đường đi tiếp.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:3200,&quot;height&quot;:1100}}">
+const DAYS = [
+  [
+    { t: 7.5, dur: 45, km: 1.4, name: "Bún bò Huế Bà Tuyết", cat: "Ẩm thực", hint: "Hết hàng trước 10:00" },
+    { t: 8.75, dur: 120, km: 2.1, name: "Đại Nội — Hoàng thành Huế", cat: "Di sản", hint: "Vào trước 9:00 để tránh đoàn tour" },
+    { t: 11.25, dur: 60, km: 3.0, name: "Chợ Đông Ba", cat: "Ẩm thực", hint: "Bánh bèo, nậm, lọc ở tầng 1" },
+    { t: 13.5, dur: 60, km: 4.8, name: "Nhà vườn An Hiên", cat: "Di sản", hint: "Mát nhất đầu giờ chiều" },
+    { t: 15, dur: 75, km: 2.2, name: "Làng hương Thủy Xuân", cat: "Làng nghề", hint: "Khung giờ vắng nhất trong ngày" },
+    { t: 16.75, dur: 45, km: 6.4, name: "Đồi Vọng Cảnh", cat: "Thiên nhiên", hint: "Hoàng hôn khoảng 17:55" },
+    { t: 18.5, dur: 60, km: null, name: "Cơm hến Cồn Hến", cat: "Ẩm thực", hint: "Ăn tối trên cồn giữa sông" }
+  ],
+  [
+    { t: 8, dur: 60, km: 9.1, name: "Chùa Thiên Mụ", cat: "Di sản", hint: "Còn tụng kinh sáng lúc 8:00" },
+    { t: 9.5, dur: 75, km: 7.6, name: "Làng hoa giấy Thanh Tiên", cat: "Làng nghề", hint: "Nghệ nhân nhận dạy cắt cánh" },
+    { t: 11.5, dur: 50, km: 6.2, name: "Bánh khoái Lạc Thiện", cat: "Ẩm thực", hint: "Gần cửa Thượng Tứ" },
+    { t: 13, dur: 90, km: 5.5, name: "Lăng Tự Đức", cat: "Di sản", hint: "Nhiều bóng cây, chịu được nắng trưa" },
+    { t: 15, dur: 80, km: 11.3, name: "Lăng Khải Định", cat: "Di sản", hint: "Đóng cửa 17:00, đi sớm" },
+    { t: 17, dur: 60, km: null, name: "Phố cổ Bao Vinh", cat: "Di sản", hint: "Thương cảng cũ bên sông" }
+  ]
+];
+
+const MODES = [
+  { label: "Đi bộ", speed: 4.8, word: "đi bộ" },
+  { label: "Xe máy", speed: 24, word: "xe máy" },
+  { label: "Ô tô", speed: 20, word: "ô tô" }
+];
+
+const CITIES = [
+  { name: "Huế", ready: true },
+  { name: "Đà Nẵng", ready: false },
+  { name: "Hội An", ready: false },
+  { name: "Quảng Trị", ready: false }
+];
+
+const CAT = {
+  "Di sản": { ink: "#C9861B", bg: "#FDF0D9" },
+  "Ẩm thực": { ink: "#D93A14", bg: "#FAE6E0" },
+  "Làng nghề": { ink: "#0B6E5F", bg: "#E4F0EC" },
+  "Thiên nhiên": { ink: "#3F7D20", bg: "#EBF2E1" }
+};
+
+const fmt = (h) => {
+  const hh = Math.floor(h), mm = Math.round((h - hh) * 60);
+  return String(hh).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
+};
+
+class Component extends DCLogic {
+  state = { day: 0, mode: 1, len: 2, interests: [1, 2], city: 0, start: 1, group: 0, editing: false };
+
+  smallPill(on) {
+    return "height:38px;padding:0 15px;border-radius:999px;font-family:'Be Vietnam Pro';font-size:13px;font-weight:600;cursor:pointer;border:2px solid " +
+      (on ? "#16130F;background:#FFD66B;color:#16130F" : "#E7DFD4;background:#fff;color:#6B5F52");
+  }
+
+  cityBtn(on, ready) {
+    return "display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:13px 15px;border-radius:16px;cursor:pointer;font-family:'Be Vietnam Pro';border:2px solid " +
+      (on ? "#16130F;background:#16130F;color:#FFF7EE" : ready ? "#16130F;background:#fff;color:#16130F" : "#E7DFD4;background:#FBF6EF;color:#9A8F80");
+  }
+
+  pill(on) {
+    return "height:40px;padding:0 18px;border-radius:999px;font-family:Archivo;font-size:13px;font-weight:700;cursor:pointer;border:2px solid " +
+      (on ? "#16130F;background:#16130F;color:#FFF7EE" : "#E7DFD4;background:#fff;color:#6B5F52");
+  }
+
+  card(on) {
+    return "display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;padding:15px;border-radius:18px;cursor:pointer;font-family:'Be Vietnam Pro';border:2px solid " +
+      (on ? "#16130F;background:#FFD66B;color:#16130F" : "#E7DFD4;background:#fff;color:#4A4238");
+  }
+
+  renderVals() {
+    const mode = MODES[this.state.mode];
+    const raw = DAYS[this.state.day];
+    const stops = raw.map((s, i) => {
+      const next = raw[i + 1];
+      const km = next ? next.km : null;
+      const mins = km ? Math.max(3, Math.round(km / mode.speed * 60)) : null;
+      const c = CAT[s.cat];
+      return {
+        time: fmt(s.t),
+        durTxt: s.dur + " phút",
+        name: s.name,
+        catUp: s.cat.toUpperCase(),
+        hint: s.hint,
+        initial: s.name.trim()[0],
+        swatchStyle: "width:56px;height:56px;flex:none;border-radius:14px;display:grid;place-items:center;font-family:Archivo;font-size:21px;font-weight:800;color:" + c.ink + ";background:" + c.bg,
+        dotStyle: "width:7px;height:7px;border-radius:50%;background:" + c.ink,
+        travel: mins ? mins + " phút " + mode.word + " · " + String(km).replace(".", ",") + " km" : "Kết thúc ngày"
+      };
+    });
+    const last = raw[raw.length - 1];
+    const has = (i) => this.state.interests.indexOf(i) >= 0;
+    const tog = (i) => () => this.setState((s) => ({
+      interests: s.interests.indexOf(i) >= 0 ? s.interests.filter((x) => x !== i) : s.interests.concat([i])
+    }));
+    const city = CITIES[this.state.city];
+    const ed = this.state.editing;
+    const starts = ["07:00", "08:30", "10:00"];
+    const groups = ["Một mình", "Hai người", "Có trẻ nhỏ", "Nhóm 4+"];
+    return {
+      stops,
+      startStyle0: this.smallPill(this.state.start === 0),
+      startStyle1: this.smallPill(this.state.start === 1),
+      startStyle2: this.smallPill(this.state.start === 2),
+      setStart0: () => this.setState({ start: 0 }),
+      setStart1: () => this.setState({ start: 1 }),
+      setStart2: () => this.setState({ start: 2 }),
+      groupStyle0: this.smallPill(this.state.group === 0),
+      groupStyle1: this.smallPill(this.state.group === 1),
+      groupStyle2: this.smallPill(this.state.group === 2),
+      groupStyle3: this.smallPill(this.state.group === 3),
+      setGroup0: () => this.setState({ group: 0 }),
+      setGroup1: () => this.setState({ group: 1 }),
+      setGroup2: () => this.setState({ group: 2 }),
+      setGroup3: () => this.setState({ group: 3 }),
+      startNote: "Bắt đầu " + starts[this.state.start] + " · " + groups[this.state.group].toLowerCase(),
+      lenLabel: this.state.len + " ngày",
+      editing: ed,
+      editLabel: ed ? "Xong" : "Sửa",
+      editBtnStyle: "height:40px;padding:0 16px;border-radius:999px;font-family:Archivo;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #16130F;" +
+        (ed ? "background:#16130F;color:#FFF7EE" : "background:#fff;color:#16130F"),
+      editRowStyle: ed
+        ? "display:flex;gap:8px;padding:10px 0 2px;flex-wrap:wrap"
+        : "display:none",
+      toggleEdit: () => this.setState((s) => ({ editing: !s.editing })),
+      barTitle: ed ? "Đang sửa ngày " + (this.state.day + 1) : raw.length + " điểm · Ngày " + (this.state.day + 1),
+      barSub: ed ? "Kéo thẻ để đổi thứ tự · thay đổi lưu ngay" : "Kết thúc khoảng " + fmt(last.t + last.dur / 60),
+      cityName: city.name,
+      cityNote: city.ready
+        ? "Dữ liệu Huế do nhóm tự thu thập, cập nhật tháng này."
+        : "Chưa có dữ liệu điểm đến cho " + city.name + ". Chọn để mình báo khi mở.",
+      cityNoteStyle: "margin-top:12px;font-size:12.5px;line-height:1.5;padding:11px 13px;border-radius:13px;" +
+        (city.ready ? "background:#E4F0EC;color:#0B6E5F" : "background:#FFE7CE;color:#7A4A12"),
+      city0Style: this.cityBtn(this.state.city === 0, true),
+      city1Style: this.cityBtn(this.state.city === 1, false),
+      city2Style: this.cityBtn(this.state.city === 2, false),
+      city3Style: this.cityBtn(this.state.city === 3, false),
+      city0: () => this.setState({ city: 0 }),
+      city1: () => this.setState({ city: 1 }),
+      city2: () => this.setState({ city: 2 }),
+      city3: () => this.setState({ city: 3 }),
+      modeLabel: mode.label,
+      dayTotal: raw.length + " điểm · " + (this.state.day === 0 ? "Ngày 1" : "Ngày 2"),
+      dayEnd: fmt(last.t + last.dur / 60),
+      day0Style: this.pill(this.state.day === 0),
+      day1Style: this.pill(this.state.day === 1),
+      pickDay0: () => this.setState({ day: 0 }),
+      pickDay1: () => this.setState({ day: 1 }),
+      cycleMode: () => this.setState((s) => ({ mode: (s.mode + 1) % 3 })),
+      len1Style: this.pill(this.state.len === 1),
+      len2Style: this.pill(this.state.len === 2),
+      len3Style: this.pill(this.state.len === 3),
+      pickLen1: () => this.setState({ len: 1 }),
+      pickLen2: () => this.setState({ len: 2 }),
+      pickLen3: () => this.setState({ len: 3 }),
+      int0Style: this.card(has(0)), int1Style: this.card(has(1)),
+      int2Style: this.card(has(2)), int3Style: this.card(has(3)),
+      tog0: tog(0), tog1: tog(1), tog2: tog(2), tog3: tog(3),
+      mWalkStyle: this.pill(this.state.mode === 0),
+      mBikeStyle: this.pill(this.state.mode === 1),
+      mCarStyle: this.pill(this.state.mode === 2),
+      setWalk: () => this.setState({ mode: 0 }),
+      setBike: () => this.setState({ mode: 1 }),
+      setCar: () => this.setState({ mode: 2 })
+    };
+  }
+}
+</script>
+</body>
+</html>
